@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/providers/task_data.dart';
 
-import '../../../models/task.dart';
 import 'task_item.dart';
 
 class TasksList extends StatefulWidget {
@@ -9,31 +10,28 @@ class TasksList extends StatefulWidget {
 }
 
 class _TasksListState extends State<TasksList> {
-  List<Task> tasks = [
-    Task(name: 'Buy milk'),
-    Task(name: 'Call mom'),
-    Task(name: 'Mail letter'),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemCount: tasks.length,
-      itemBuilder: (context, i) {
-        return TaskItem(
-          taskTitle: tasks[i].name,
-          isDone: tasks[i].isDone,
-          checkBoxCallback: () {
-            setState(() {
-              tasks[i].toggleDone();
-            });
-          },
-        );
-      },
-      separatorBuilder: (context, i) {
-        return const Divider();
-      },
+    return Consumer<TaskData>(
+      builder: (context, taskData, child) => ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        itemCount: taskData.taskCount,
+        itemBuilder: (context, i) {
+          final task = taskData.tasks[i];
+          return TaskItem(
+            taskTitle: task.name,
+            isDone: task.isDone,
+            checkBoxCallback: () {
+              setState(() {
+                task.toggleDone();
+              });
+            },
+          );
+        },
+        separatorBuilder: (context, i) {
+          return const Divider();
+        },
+      ),
     );
   }
 }

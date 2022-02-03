@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/task_data.dart';
 import '../add_task/add_task_screen.dart';
 import 'tasks_widgets/tasks_list.dart';
 
@@ -16,8 +18,8 @@ class TasksScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
                   child: Icon(
@@ -25,8 +27,8 @@ class TasksScreen extends StatelessWidget {
                     size: 32,
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   'Todoey',
                   style: TextStyle(
                     fontSize: 48,
@@ -35,8 +37,8 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\t\t\t16 tasks due',
-                  style: TextStyle(
+                  '\t\t\t${Provider.of<TaskData>(context).taskCount} tasks due',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

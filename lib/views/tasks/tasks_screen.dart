@@ -10,6 +10,7 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskProvider = Provider.of<TaskData>(context);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +38,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\t\t\t${Provider.of<TaskData>(context).taskCount} tasks due',
+                  '\t\t\t${taskProvider.taskCountNotDone} tasks due, ${taskProvider.taskCountDone} done',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -49,7 +50,6 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -57,7 +57,29 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TasksList(),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                    '\t\t\t\t\tTo do',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TasksList(isDone: false),
+                  const SizedBox(height: 20),
+                  const Text(
+                    '\t\t\t\t\tCompleted',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TasksList(isDone: true),
+                ],
+              ),
             ),
           ),
         ],

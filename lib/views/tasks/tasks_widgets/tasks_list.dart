@@ -17,7 +17,7 @@ class _TasksListState extends State<TasksList> {
         physics: const BouncingScrollPhysics(),
         itemCount: taskData.taskCount,
         itemBuilder: (context, i) {
-          final task = taskData.tasks[i];
+          final task = taskData.allTasks[i];
           return TaskItem(
             taskTitle: task.name,
             isDone: task.isDone,

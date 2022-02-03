@@ -5,9 +5,9 @@ import 'package:todoey/providers/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final mdQry = MediaQuery.of(context);
     String? newTaskTitle;
     return Container(
       color: const Color(0xff757575),
@@ -20,8 +20,10 @@ class AddTaskScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: EdgeInsets.fromLTRB(30, 30, 30, mdQry.viewInsets.bottom + 30),
           child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             children: [
               Text(
                 'New task',
